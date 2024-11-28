@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "", terms: false });
@@ -23,12 +23,17 @@ const Login = () => {
     setErrors(newErrors);
   };
 
+  useEffect(() => {
+    validate();
+  }, [formData]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+    validate();
   };
 
   const handleSubmit = (e) => {
